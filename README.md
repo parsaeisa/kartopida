@@ -22,10 +22,10 @@ entrepreneuers and job seekers have a feed which they can see companies and othe
 
 <div class="row">
   <div class="column">
-     <img src="https://github.com/parsaeisa/kartopida/blob/main/pictures/sign%20up.png" width=45% height=50% >
+     <img src="https://github.com/parsaeisa/kartopida/blob/main/pictures/sign%20up.png" width=35% height=40% >
   </div>
   <div class="column">
-    <img src="https://github.com/parsaeisa/kartopida/blob/main/pictures/entre_signup.png" width=50% height=50% >
+    <img src="https://github.com/parsaeisa/kartopida/blob/main/pictures/entre_signup.png" width=40% height=40% >
   </div>
 </div>
 
