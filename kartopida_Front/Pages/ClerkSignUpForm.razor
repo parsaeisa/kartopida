@@ -1,0 +1,240 @@
+@page "/Clerk/SignUp"
+@using System.ComponentModel.DataAnnotations
+@using Syncfusion.Blazor.Cards
+@inject HttpClient http
+@* @inject ILoginService  loginService *@
+@inject NavigationManager navigationManager
+
+<div calss="container">
+    <div class="row">
+        <div class="col">             
+            <div class="container" >                       
+            <div class="col-lg-28 control-section card-control-section" style="margin:auto ; " > 
+                <div class="row" style="height: 30px;"></div>               
+                <div class="row card-layout" >  
+                    <br/><br/><br/>
+                    <div class="col-lg-9 col-md-9">
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Trimmer">
+                            <CardStacked>
+                                <CardHeader Title="سوابق" />        
+                                <CardContent Content="خود را به اشتراک بگذارید" />
+                            </CardStacked>
+                            <img src="shareyourresome.jpg">
+                        </SfCard>
+                        <br/>
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Camera">
+                            <img src="findyourplacetowork.jpg">
+                            <CardStacked>
+                                <CardHeader Title="محل" />
+                                <CardContent Content=" کار خود را پیدا کنید ." />
+                            </CardStacked>
+                        </SfCard>
+                        <br/>
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Camera">                            
+                            <CardStacked>
+                                <CardHeader Title="درآمدزایی" />
+                                <CardContent Content="را تجربه کنید" />
+                            </CardStacked>
+                            <img src="Income.jpg">
+                        </SfCard>
+                    </div>
+                </div>                
+            </div>     
+            </div>   
+        </div>
+        <div class="col" >
+            <p dir="rtl">                    
+            <h2><b> کارمند </b> </h2>
+
+            <h5>ثبت نام همیشه رایگان </h5>
+            </p>
+            <form>
+                <EditForm Model="@clerk" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <p>
+                        <div class="form-group row" >                                                
+                            <div class="col-sm-4">                        
+                                <InputText class="form-control" @bind-Value="clerk.lastname" placeholder=" نام خانوادگی" dir="rtl"/> 
+                            </div>                    
+                            <div class="col-sm-4">                        
+                                <InputText class="form-control" @bind-Value="clerk.firstname" placeholder="نام" dir="rtl"/> 
+                            </div>                    
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                    
+                            <div class="col-sm-8">
+                                <InputText class="form-control" @bind-Value="clerk.username" dir="rtl" placeholder="نام کاربری ( به لاتین )" />
+                            </div>                    
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                    
+                                <InputSelect class="form-control" @bind-Value="clerk.Field" dir = "rtl">
+                                    <option value="">زمینه تخصص</option>
+                                    @foreach (string Field in b.fields )
+                                    {
+                                        <option value=@Field>@Field</option> 
+                                    }                                    
+                                </InputSelect>
+                            </div>                         
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                            
+                                <InputText class="form-control" @bind-Value="clerk.FieldTitle" placeholder="عنوان تخصص" dir="rtl"/>
+                            </div>                    
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                    
+                                <InputSelect class="form-control" @bind-Value="clerk.degree" dir = "rtl">
+                                    <option value="">مدرک تحصیلی</option>
+                                    @foreach (string degree in b.degrees )
+                                    {
+                                        <option value=@degree>@degree</option> 
+                                    }            
+                                </InputSelect>
+                            </div>                         
+                        </div>
+                    </p>
+                    <p>
+                        <label>
+                            @* <InputRadio name="gender" SelectedValue="Female" @bind-Value="clerk.b" />
+                            Famale
+                            <InputRadio name="gender" SelectedValue="Male" @bind-Value="clerk.Gender" />
+                            Male *@
+                        </label>
+                    </p>
+                    <p>                
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                            
+                                <InputText class="form-control" @bind-Value="clerk.email" placeholder="پست الکترونیکی" dir = "rtl"/>                
+                            </div>
+                        </div>
+                    </p>              
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputText class="form-control" @bind-Value="clerk.phonenumber" placeholder="شماره تلفن همراه" dir = "rtl"/>                
+                            </div>
+                        </div>                
+                    </p>                    
+                    <p>                
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputText class="form-control" type="password" @bind-Value="clerk.password" placeholder="Password"/>       
+                            </div>
+                        </div>                
+                    </p>                  
+                    <p>                
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputText class="form-control" type="password" @bind-Value="clerk.ConfirmPassword" placeholder="Confirm-Password"/>       
+                            </div>
+                        </div>                
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputTextArea rows="5" class="form-control" @bind-Value="clerk.Description" placeholder="توضیحات" />                
+                            </div>
+                        </div>
+                    </p>    
+
+                    @* <p>                     *@
+                        @* <div class="form-group row"> *@
+                            <button type="submit" dir="rtl" class="btn btn-primary" >ثبت نام</button>
+                        @* </div> *@
+                    @* </p> *@
+                </EditForm>
+            </form>
+        </div>            
+    </div>
+    <div class="row" style="height:40px"></div>            
+</div>
+
+<style>
+        #Phone .e-card-stacked {
+            justify-content: flex-start;
+        }
+    .e-card .e-card-header .e-card-header-caption .e-card-header-title{
+        font-size: 14px;
+        font-family: Helvetica, 'Segoe UI';
+        font-weight: bold;
+    }   
+    #Trimmer {
+        height: 175px;
+    }
+    #Camera .e-card-content{
+        padding-top: 0px;
+    }
+    #Trimmer .e-card-content{
+        padding-top: 0px;
+    }
+    #Camera{
+        height: 175px;
+    }
+    .card-layout{
+        max-width: 850px;
+        margin: auto;
+    }
+    .e-card.e-card-horizontal img {
+        margin: 0px;
+        width: 50%
+    }
+    .e-card{
+        margin: 7px;
+    }
+    .card-control-section .e-card.e-card-horizontal.e-product .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child {
+        flex-grow: 0;
+    }
+</style>
+
+@code {
+    private Base b {get; set;}    
+
+    protected override void OnInitialized()
+    {        
+        b = new Base();
+    }
+
+    private Clerk clerk = new Clerk();    
+    private ClerkLoginModel clerkLoginModel = new ClerkLoginModel();
+    private bool ShowErrors;
+    private IEnumerable<string> Errors;
+
+    private async Task HandleValidSubmit()
+    {
+        @* ShowErrors = false;
+
+        var result = await ClerkAuthService.Register(clerk);
+
+        if (result.Successful)
+        {
+            NavigationManager.NavigateTo("/Login");
+        }
+        else
+        {
+            Errors = result.Errors;
+            ShowErrors = true;
+        } *@
+        
+        await http.PostJsonAsync("http://localhost:5001/api/Clerk", clerk);
+
+        clerkLoginModel.email = clerk.email ;
+        clerkLoginModel.password = clerk.password ;
+        navigationManager.NavigateTo($"/Clerk/Profile/{clerk.username}");
+
+        @* var result = await http.PostJsonAsync<UserToken>("http://localhost:5001/api/ClerkIdentity/create", clerkLoginModel);
+        await loginService.Login(result.Token);
+        navigationManager.NavigateTo("/Login"); *@
+    }
+}

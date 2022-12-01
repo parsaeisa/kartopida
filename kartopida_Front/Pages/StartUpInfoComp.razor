@@ -1,0 +1,28 @@
+@page "/StartupInfoComponent"
+@using Radzen.Blazor
+
+<div class="row card-layout">                                                  
+    @* <div class = "col-md-1"></div> *@
+    <div class = "col">  
+        <div class="card" style="width: 28rem;height:fit-content" dir="rtl">
+            <img src="startup1.jpg" class="card-img-top" style="height: 12rem;" >
+            <div class="card-body">
+                <h5 class="card-title">@startup.name | @startup.InternationalName</h5> <span class="badge badge-info"> @startup.WorkingTitle </span>
+                <p class="card-text">           
+                    <span class="badge badge-success"> @startup.Situation </span>|                             
+                     <span class="material-icons">location_on</span> @startup.State / @startup.City 
+                     | ساعت کاری :  @startup.StartWork الی @startup.EndWork
+                    <br/>                    
+                    <a href="/StartUp/Info/{@startup.InternationalName}" class="btn btn-secondry btn-lg active" role="button" aria-pressed="true">
+                        <span class="material-icons">business</span>
+                    </a>                      
+                </p>                            
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public Startup startup {get; set;}
+}

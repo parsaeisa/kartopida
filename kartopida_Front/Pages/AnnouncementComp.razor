@@ -1,0 +1,23 @@
+@using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Buttons
+
+<div class="card" style="width: inherit;height : fit-content ; text-align: right;" dir = "rtl">  
+  <div class="card-body">
+    <h4 class="card-title">@agahi.title / @agahi.Field</h4>
+    <p class="card-text">
+        <h5><span class="material-icons">location_on</span>  @agahi.Origin.State / @agahi.Origin.City<span class="material-icons">business</span> @agahi.Origin.name</h5>
+        <br/>
+        <h6> نیازمندی ها : 
+             @agahi.Requirments.First()  ,            
+             @agahi.Requirments.ToArray()[1] و ...
+             </h6>
+    </p>
+    <a href="/Announcement/{cafebazaar}/{@agahi.title}" class="btn btn-outline-info">اطلاعات بیشتر</a>
+  </div>
+</div>
+
+@code{
+
+    [Parameter]
+    public Agahi agahi{get; set;}
+}

@@ -1,0 +1,176 @@
+@page "/Entrepreneur/SignUp"
+@using System.ComponentModel.DataAnnotations
+@using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Popups
+@inject HttpClient http
+@inject NavigationManager navigationManager
+
+<div calss="container">
+    <div class="row">
+        <div class="col"> 
+            <p>
+
+            </p>
+            <div class="container" >             
+            <div class="col-lg-38 control-section card-control-section" style="margin:auto ; align : center" >                
+                <div class="row card-layout">                          
+                    <div class="col-lg-9 col-md-9">
+                        <br/><br/><br/>
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Trimmer">
+                            <CardStacked>
+                                <CardHeader Title="ساختن" />        
+                                <CardContent Content="را آغاز کنید" />
+                            </CardStacked>
+                            <img src="make.jpg">
+                        </SfCard>
+                        <br/>
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Camera">
+                            <img src="investment.jpg">
+                            <CardStacked>
+                                <CardHeader Title="سرمایه گذاری" />
+                                <CardContent Content=" کنید " />
+                            </CardStacked>
+                        </SfCard>                        
+                    </div>
+                </div>                
+            </div>     
+            </div>   
+        </div>
+        <div class="col" >
+            <p dir="rtl">                    
+            <h2><b> کارآفرین </b></h2>
+
+            <h4>ثبت نام همیشه رایگان </h4>
+            </p>
+            <form>
+                <EditForm Model="@entrepreneur" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <p>
+                        <div class="form-group row" >                                                
+                            <div class="col-sm-4">                        
+                                <InputText class="form-control" @bind-Value="entrepreneur.lastname" placeholder=" نام خانوادگی" dir="rtl"/> 
+                            </div>                    
+                            <div class="col-sm-4">                        
+                                <InputText class="form-control" @bind-Value="entrepreneur.firstname" placeholder="نام" dir="rtl"/> 
+                            </div>                    
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                    
+                            <div class="col-sm-8">
+                                <InputText class="form-control" @bind-Value="entrepreneur.username" dir="rtl" placeholder="نام کاربری ( به لاتین )" />
+                            </div>                    
+                        </div>
+                    </p>                                    
+                    <p>                
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                            
+                                <InputText class="form-control" @bind-Value="entrepreneur.email" placeholder="پست الکترونیکی" dir = "rtl"/>                
+                            </div>
+                        </div>
+                    </p>              
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputText class="form-control" @bind-Value="entrepreneur.phonenumber" placeholder="شماره تلفن همراه" dir = "rtl"/>                
+                            </div>
+                        </div>                
+                    </p>
+                    <p>
+                    <p>
+                        @* @foreach(var field in b.fields)
+                        {                            
+                            bool a ;
+                            <RadzenCheckBox @bind-Value="a" Style="margin-bottom: 20px" TValue="bool" Change="@((a,f) => Change(a,f))" />
+                            <RadzenLabel Text="@field" Component="CheckBox1" Style="margin-left: 5px;margin-bottom: 20px" />
+                        } *@
+                    </p>
+                    </p>
+                    <p>                
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputText class="form-control" type="password" @bind-Value="entrepreneur.password" placeholder="Password"/>       
+                            </div>
+                        </div>                
+                    </p>              
+                    <p>                
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputText class="form-control" type="password" @bind-Value="entrepreneur.ConfirmPassword" placeholder="Confirm-Password"/>       
+                            </div>
+                        </div>                
+                    </p>    
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputTextArea rows="5" class="form-control" @bind-Value="entrepreneur.Description" placeholder="توضیحات" />                
+                            </div>
+                        </div>
+                    </p>    
+                    
+                    <button type="submit" dir="rtl" class="btn btn-primary" >ثبت نام</button>                        
+                </EditForm>
+            </form>
+        </div>            
+    </div>
+    <div class="row">
+        <br/><br/><br/><br/>
+    </div>            
+</div>
+
+<style>
+        #Phone .e-card-stacked {
+            justify-content: flex-start;
+        }
+    .e-card .e-card-header .e-card-header-caption .e-card-header-title{
+        font-size: 14px;
+        font-family: Helvetica, 'Segoe UI';
+        font-weight: bold;
+    }   
+    #Trimmer {
+        height: 175px;
+    }
+    #Camera .e-card-content{
+        padding-top: 0px;
+    }
+    #Trimmer .e-card-content{
+        padding-top: 0px;
+    }
+    #Camera{
+        height: 175px;
+    }
+    .card-layout{
+        max-width: 850px;
+        margin: auto;
+    }
+    .e-card.e-card-horizontal img {
+        margin: 0px;
+        width: 50%
+    }
+    .e-card{
+        margin: 7px;
+    }
+    .card-control-section .e-card.e-card-horizontal.e-product .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child {
+        flex-grow: 0;
+    }
+</style>
+
+@code {
+    static private Base b = new Base();
+    private List<bool> fieldsbool = new List<bool>();
+    private Entrepreneur entrepreneur = new Entrepreneur();
+    private bool signedUp {get; set;}    
+    private async Task HandleValidSubmit()
+    {
+        signedUp = true ;
+        Console.WriteLine("OnValidSubmit");
+
+        await http.PostJsonAsync("http://localhost:5001/api/Entrepreneur", entrepreneur);
+        
+        navigationManager.NavigateTo($"/entrepreur/Profile/{entrepreneur.username}");
+    }
+}

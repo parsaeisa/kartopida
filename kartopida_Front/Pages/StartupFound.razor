@@ -1,0 +1,210 @@
+@page "/Startupfound"
+@using System.ComponentModel.DataAnnotations
+@using Syncfusion.Blazor.Cards
+@using Radzen.Blazor
+@inject HttpClient http
+@inject NavigationManager navigationManager
+
+<div calss="container">
+    <div class="row">
+        <div class="col">         
+            <div class="container" >             
+                <div class="row"> <br/><br/><br/><br/> </div>
+                <div class="row card-layout">                                              
+                    <div class = "col"></div>                                            
+                    <div class = "col">  
+                        <div class="card" style="width: 28rem;text-align: right ;" dir="rtl">
+                            <img src="Startup.jpg" class="card-img-top" >
+                            <div class="card-body">
+                                <h5 class="card-title">شروع</h5>
+                                <p class="card-text">کار جدید ، ایجاد اشتغال ، پیشرفت خدمات ، علم ، فن و ...</p>                            
+                            </div>
+                        </div>
+                        <br/> <br/>
+                        <div class="card" style="width: 28rem;text-align: right ;" dir="rtl">
+                            <img src="Communication.jpg" class="card-img-top" >
+                            <div class="card-body">
+                                <h5 class="card-title">مشارکت</h5>
+                                <p class="card-text">داشته باشید </p>                            
+                            </div>
+                        </div>
+                    </div>                                                                                
+                    <div class = "col"></div>                                            
+                </div>
+                <div class="row"> <br/><br/><br/><br/> </div>                                    
+            </div>   
+        </div>
+        <div class="col" >            
+            <br/>
+            <h2><b> استارت آپ </b></h2>
+
+            <h4>ثبت همیشه رایگان </h4>
+            <form>
+                <EditForm Model="@startup" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <p>
+                        <div class="form-group row" >                                                
+                            <div class="col-sm-8">                        
+                                <InputText class="form-control" @bind-Value="startup.name" placeholder="نام" dir="rtl"/> 
+                            </div>                                                
+                        </div>
+                    </p>               
+                    <p>
+                        <div class="form-group row" >                                                
+                            <div class="col-sm-8">                        
+                                <InputText class="form-control" @bind-Value="startup.InternationalName" placeholder=" عنوان بین المللی" dir="rtl"/> 
+                            </div>                                                
+                        </div>
+                    </p>                    
+                    <p>
+                        <div class="form-group row">
+                            <div class="col-sm-8">                        
+                                    <InputText class="form-control" @bind-Value="startup.WorkingTitle" placeholder="عنوان فعالیت" dir="rtl"/> 
+                            </div>                    
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >
+                            <div class="col-sm-8">
+                                <InputSelect class="form-control" @bind-Value="startup.Situation" dir = "rtl">
+                                    <option value="">وضعیت</option>
+                                    @foreach (string situation in b.situations )
+                                    {
+                                        <option value=@situation>@situation</option> 
+                                    }            
+                                </InputSelect>
+                            </div>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="row">
+                            <div class="col-sm-8">             
+                                    <h3> ساعات کاری                     </h3>
+                                    @hoursOfWork.Min() <RadzenSlider Range="true" @bind-Value="hoursOfWork" Min = "0" Max = "24" TValue="IEnumerable<int>" Change="@((args) => Change(args, "Slider with Step 10"))" Style="margin-bottom: 20px;" /> @hoursOfWork.Max()
+                            </div>
+                        </div>
+                    </p>            
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                    
+                                <InputSelect class="form-control" @bind-Value="startup.State" dir = "rtl">
+                                    <option value="">استان</option>
+                                    @foreach (string state in b.states )
+                                    {
+                                        <option value=@state>@state</option> 
+                                    }            
+                                </InputSelect>
+                            </div>                         
+                        </div>
+                    </p>
+                    <p> 
+                        <div class="form-group row">
+                            <div class="col-sm-8">                    
+                                    <InputText class="form-control" @bind-Value="startup.City" placeholder="شهر" dir="rtl"/> 
+                            </div>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputTextArea rows="3" class="form-control" @bind-Value="startup.Address" placeholder="آدرس" />                
+                            </div>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputTextArea rows="5" class="form-control" @bind-Value="startup.Entres" placeholder="اسامی دیگر کارآفرینان" />                
+                            </div>
+                        </div>
+                    </p>    
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                         
+                                <InputTextArea rows="5" class="form-control" @bind-Value="startup.Clers" placeholder="اسامی کارمندان" />                
+                            </div>
+                        </div>
+                    </p>    
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputTextArea rows="5" class="form-control" @bind-Value="startup.Description" placeholder="توضیحات" />                
+                            </div>
+                        </div>
+                    </p>                        
+                    <button type="submit" dir="rtl" class="btn btn-primary" >ثبت نام</button>                        
+                </EditForm>
+            </form> 
+                        
+        </div>            
+    </div>
+    <div class="row" style="height:40px"></div>            
+</div>
+
+<style>
+        #Phone .e-card-stacked {
+            justify-content: flex-start;
+        }
+    .e-card .e-card-header .e-card-header-caption .e-card-header-title{
+        font-size: 14px;
+        font-family: Helvetica, 'Segoe UI';
+        font-weight: bold;
+    }   
+    #Trimmer {
+        height: 175px;
+    }
+    #Camera .e-card-content{
+        padding-top: 0px;
+    }
+    #Trimmer .e-card-content{
+        padding-top: 0px;
+    }
+    #Camera{
+        height: 175px;
+    }
+    .card-layout{
+        max-width: 850px;
+        margin: auto;
+    }
+    .e-card.e-card-horizontal img {
+        margin: 0px;
+        width: 50%
+    }
+    .e-card{
+        margin: 7px;
+    }
+    .card-control-section .e-card.e-card-horizontal.e-product .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child {
+        flex-grow: 0;
+    }
+</style>
+
+@code {
+    private IEnumerable<int> hoursOfWork = new int[]{8 , 21};
+    private bool changed {get; set;}
+    static private Base b {get; set;}    
+    private Startup startup {get; set;}
+
+    protected override void OnInitialized()
+    {
+        startup = new Startup();
+        b =  new Base();
+    }
+    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+
+    private async Task HandleValidSubmit()
+    {
+
+        startup.StartWork = hoursOfWork.Min() ;
+        startup.EndWork = hoursOfWork.Max() ;
+        
+        await http.PostJsonAsync("http://localhost:5001/api/Startup", startup);
+
+        navigationManager.NavigateTo($"/StartUp/Info/{startup.InternationalName}");    
+    }
+    int value = 67 ;
+    void Change(dynamic value, string name) {}
+}

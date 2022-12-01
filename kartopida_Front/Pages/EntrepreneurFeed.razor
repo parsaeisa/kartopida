@@ -1,0 +1,55 @@
+@page "/Entrepreneur/Feed"
+@using kartopida_FRONT.Pages
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-md-3 col-xl-2 bd-sidebar">
+            <br/><br/><br/>
+            <a href="EntrepreneurEdit" class="btn btn-primary btn-lg active" role="button" style="width: inherit;" aria-pressed="true">ویرایش</a>
+        </div>                
+        <main class="col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content" role="main">        
+            @* Random StartUps  *@
+            @foreach (var st in startups)
+            {
+                <StartUpInfoComp startup=st />
+                <br/><br/>
+            }        
+        </main>
+        <main class="col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content" role="main">
+            @* clerk profiles *@
+            @foreach (var c in clerks)
+            {
+                <ClerkProfComp clerk=c />
+                <br/>
+            }
+
+        </main>
+    </div>
+</div>
+
+@code
+{
+    private Entrepreneur entrepreneur {get; set;}
+    private IEnumerable<Clerk> clerks {get; set;}
+    private IEnumerable<Startup> startups {get; set;}
+    protected override void OnInitialized()
+    {
+        @* entrepreneur = new Entrepreneur("ls" , "sdgfga" , "esfas" , "sdaadf" , "adgadg"); *@        
+
+        startups = new List<Startup>{
+            new Startup("roohafza" , "computer" , "tehran" , "tehran"
+            , 8 , 12, "در حال استخدام" , "روح افزا" , "تجریش") ,        
+            new Startup("cafe_bazaar" , "android app" , "اصفهان" , "اصفهون"
+            , 8 , 24 , "در حال استخدام" , "کافه بازار" , "ونک")
+            };
+
+        clerks= new List<Clerk>{
+                new Clerk(1 , "پارسا" , "عیس زاده" , "برنامه نویسی اندروید" 
+                , "bachelor" ,"parsa_eisa" , "p_eisa@out.com","Android" , "p_eissazadeh@comp.iust.ac.ir" , "09305709847" , "he's awesome") ,
+                new Clerk( 2 , "امرعلی" , "پاکدامن" , "برنامه نویسی full-stack"
+                , "bachelor" ,"amirali_p" , "amirali_p@out.com","full-stack developer" , "p_donyavi@comp.iust.ac.ir" , "34823094" , "He's awesome too") ,
+                new Clerk( 3 , "عرشیا" , "موسوی" , "مهندسی برق" 
+                , "bachelor" ,"arshia_mu" , "Arshiamu@out.com", "electric cars" , "a_mousavi@elec.iust.ac.ir" , "2323535" , "he's not that awesome" )
+            };
+    }
+}

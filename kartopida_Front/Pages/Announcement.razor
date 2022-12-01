@@ -1,0 +1,77 @@
+@page "/Announcement/{startupName}/{announcementID}"
+@inject HttpClient http
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <br/>
+            <div class="card" style="width: inherit;height : fit-content ; text-align: right;" dir = "rtl">  
+                <div class="card-body">
+                    <h4 class="card-title">@agahi.title / @agahi.Field</h4>                    
+                    <p class="card-text">                        
+                        <h5><span class="material-icons">location_on</span>  @agahi.Origin.State / @agahi.Origin.City<span class="material-icons">business</span> @agahi.Origin.name</h5>
+                        <br/>
+                        <h6> تعداد نفرات :
+                            @if(agahi.isTaken == true)
+                            {
+                                <span class="badge badge-danger">@agahi.RequiredEmployees / @agahi.count</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">@agahi.RequiredEmployees / @agahi.count</span>
+                            }
+                        </h6>                        
+                        <p> نیازمندی ها :  <br/>
+                            @foreach (var requirment in @agahi.Requirments)
+                            {
+                                @requirment <br/>
+                            }
+                        </p>  
+                    </p>                    
+                </div>
+            </div>
+            <br/>
+        </div>
+        <div class="col-md-4"></div>        
+    </div>
+    <div class="row">
+        <div class = "col-md-3" ></div>
+        <div class = "col-md-5" >
+            <StartUpInfoComp startup="@agahi.Origin" />
+        </div>
+        <div class = "col-md-4" ></div>
+    </div>
+    <div class="row">
+        <br/>
+    </div>
+</div>
+
+@code{    
+    public Agahi agahi = new Agahi();
+    public Startup origin = new Startup();
+
+    [Parameter] public int announcementID {get; set; }
+    [Parameter] public string startupName {get; set; }
+    [Parameter] public string entrepreneurName {get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {        
+
+        agahi = await http.GetJsonAsync<Agahi>($"http://localhost:5001/api/Agahi/{announcementID}");        
+        origin = await http.GetJsonAsync<Startup>($"http://localhost:5001/api/Startup/{startupName}");        
+
+
+        @* retrieve agahi *@
+
+        @* agahi = new Agahi();
+        agahi.title = "جارو کشی" ;
+        agahi.Field ="نظافت" ;
+        agahi.RequiredEmployees = 5 ;
+        agahi.count = 2 ;
+        agahi.Requirments = new List<string>{"قوای جسمی" , "توانایی کار برای ساعت های بالا"
+            , " غر نزدن" , "خاطره تعریف نکردن" , "خوب بودن"} ;
+        agahi.Origin = new Startup("roohafza" , "computer" , "تهران" , "تهران"
+            , new int[]{8 , 12}, "در حال استخدام" , "روح افزا"); *@
+    }
+}

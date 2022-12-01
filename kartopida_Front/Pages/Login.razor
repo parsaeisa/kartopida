@@ -1,0 +1,81 @@
+@page "/Login"
+@inject HttpClient http
+@inject ILoginService  loginService
+@inject NavigationManager navigationManager
+
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@Error</p>
+    </div>
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <br/><br/><br/><br/>    
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2 style="text-align: center;">ورود</h2>
+            <br/>
+            <div class="card">
+                <div class="card-body">                    
+                    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="form-group">
+                            <label for="email"><b>   آدرس پست الکترونیکی </b></label>
+                            <InputText Id="email" Class="form-control" @bind-Value="loginModel.email" />
+                            <ValidationMessage For="@(() => loginModel.email)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><b> رمز عبور </b></label>
+                            <InputText Id="password" type="password" Class="form-control" @bind-Value="loginModel.password" />
+                            <ValidationMessage For="@(() => loginModel.password)" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <br/><br/><br/><br/>
+        <br/><br/><br/><br/>
+        <br/>
+    </div>
+</div>
+
+@code {
+
+    private ClerkLoginModel loginModel = new ClerkLoginModel();
+    private bool ShowErrors;
+    private string Error = "";
+
+    private async Task HandleLogin()
+    {
+        @* ShowErrors = false;
+
+        var result = await ClerkAuthService.Login(loginModel);
+
+        if (result.Successful)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            Error = result.Error;
+            ShowErrors = true;
+        } *@
+
+        var result = await http.PostJsonAsync<UserToken>("http://localhost:5001/api/ClerkIdentity/login", loginModel);
+        await loginService.Login(result.Token);
+        navigationManager.NavigateTo("/try");
+    }
+
+}

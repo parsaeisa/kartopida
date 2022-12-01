@@ -1,0 +1,79 @@
+@page "/Clerk/Feed"
+@using kartopida_FRONT.Pages
+@using kartopida_Shared
+
+
+@* <AuthorizeView>
+    <NotAuthorized>
+        <h1>Sign in  </h1>
+    </NotAuthorized>    
+    <Authorized>    
+        @context.User.Identity.Email *@
+        <div class="container-fluid">
+            <div class="row flex-xl-nowrap">
+                <div class="col-md-3 col-xl-2 bd-sidebar">
+                    <br/><br/><br/>
+                    <a href="EntrepreneurEdit" class="btn btn-primary btn-lg active" role="button" style="width: inherit;" aria-pressed="true">ویرایش</a>
+                </div>                    
+                <main class="col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content" role="main">                        
+                    @* Announcment *@
+                    @foreach (var announcement in Agahiha)
+                    {
+                        <AnnouncementComp agahi="@announcement" />
+                    }
+                </main>
+                <main class="col-md-9 col-xl-5 py-md-3 pl-md-5 bd-content" role="main">        
+                    @* Random StartUps  *@
+                    @foreach (var st in startups)
+                    {
+                        <StartUpInfoComp startup=st />
+                        <br/><br/>
+                    }        
+                </main>
+            </div>
+        </div>
+    @* </Authorized>
+</AuthorizeView> *@
+
+@code
+{
+     
+    private IEnumerable<Startup> startups = new List<Startup>();
+    private IEnumerable<Agahi> Agahiha = new List<Agahi>();
+     
+    @* private Startup startup {get; set; } *@
+    protected override void OnInitialized()
+    {              
+        Startup s = new Startup();
+        s.name = "کارافزا" ;
+        s.WorkingTitle = "لوله جات" ; 
+        s.State = "تهران" ;
+        s.City = "دماوند" ;
+        s.Situation = "در حال استخدام" ;
+        s.InternationalName = "karafza" ;
+        s.StartWork = 9 ;
+        s.EndWork = 18 ;
+        s.Description = "اینجا خیلی حال میده" ;
+        s.Address = "سردار جنگل" ;
+        s.founder = new Entrepreneur("مارک" , "زاکربرگ" ,"mark_zuck","Password1!" , "sfsas@aefa.com"
+        , "345554" , "مدیر عامل اسبق facebook");        
+
+        startups = new List<Startup>{
+            s ,
+            new Startup("کافه بازار" , "AndroidApp" , "تهران" , "تهران" , 8,12 , "در حال استخدام"
+            , "cafebazaar" , "تهران ، ونک") ,
+            new Startup("دیجیکالا" , "ُBuyingStuff" , "تهران" , "تهران" , 10 , 122 , "در حال استخدام"
+            , "Digikala" , "تهران، ونک")
+        };
+
+        Agahi a = new Agahi(1 , "جاروکشی " , "نظافت" 
+            ,5 , 2 , "1-غرنزنه 2- سخت کار کنه 3- خاطره تعریف نکنه" , 3) ;
+        a.Origin = s ;
+
+        Agahiha = new List<Agahi>{
+            a 
+        };
+    }
+
+    
+}

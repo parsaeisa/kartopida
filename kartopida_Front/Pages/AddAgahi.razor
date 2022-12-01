@@ -1,0 +1,141 @@
+@page "/Announcement/Add"
+@using Syncfusion.Blazor.Cards
+@using Radzen.Blazor
+@inject NavigationManager navigationManager
+@inject HttpClient http
+
+<div calss="container">
+    <div class="row">
+        <div class="col">             
+            <div class="container" >                       
+            <div class="col-lg-28 control-section card-control-section" style="margin:auto ; text-align: right; " > 
+                <div class="row" style="height: 30px;"></div>               
+                <div class="row card-layout" >  
+                    <br/><br/><br/>
+                    <div class="col-lg-9 col-md-9">
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Trimmer">
+                            <CardStacked>
+                                <CardHeader Title="کسب" />        
+                                <CardContent Content="...فرصت های شغلی " />
+                            </CardStacked>
+                            <img src="Announcement1.jpg">
+                        </SfCard>                        
+                        <br/>    
+                        <SfCard Orientation="CardOrientation.Horizontal" ID="Trimmer">
+                            <img src="Announcement2.jpg">
+                            <CardStacked>
+                                <CardHeader Title="پیدا کردن " />        
+                                <CardContent Content=" ...نیروی انسانی مورد نیاز" />
+                            </CardStacked>
+                        </SfCard>                    
+                    </div>
+                </div>                
+            </div>     
+            </div>   
+        </div>
+        <div class="col" >
+            <p dir="rtl">                                
+
+            <h2>ثبت آگهی </h2>
+            </p>
+            <form>
+                <EditForm Model="@Announcement" OnValidSubmit="HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    
+                    <p>
+                        <div class="form-group row" >                    
+                            <div class="col-sm-8">
+                                <InputText class="form-control" @bind-Value="Announcement.title" placeholder="عنوان" dir="rtl"/>                                 
+                            </div>                    
+                        </div>
+                    </p>
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                    
+                                <InputSelect class="form-control" @bind-Value="Announcement.Field" dir = "rtl">
+                                    <option value="">زمینه تخصص</option>
+                                    @foreach (string Field in b.fields )
+                                    {
+                                        <option value=@Field>@Field</option> 
+                                    }                                    
+                                </InputSelect>
+                            </div>                         
+                        </div>
+                    </p>                               
+                    <p>
+                        <div class="form-group row">
+                            <div class="col-sm-8">                    
+                                <h6>  @Announcement.RequiredEmployees : تعداد افراد مورد نیاز</h6> <br/> <RadzenSlider @bind-Value="Announcement.RequiredEmployees" Min = "0" Max = "50" Step="1" TValue="int" Change="@((args) => Change(args, "Slider with Step 10"))" Style="margin-bottom: 20px;" /> 
+                            </div>                            
+                        </div>
+                    </p>                                                                                               
+                    <p>
+                        <div class="form-group row" >                                                                        
+                            <div class="col-sm-8">                                                                                 
+                                <InputTextArea rows="5" class="form-control" @bind-Value="Announcement.Requirments" placeholder="ملزومات" />                
+                            </div>
+                        </div>
+                    </p>                        
+                    <button type="submit" dir="rtl" class="btn btn-primary" >ثبت نام</button>                        
+                </EditForm>
+            </form>
+        </div>            
+    </div>
+    <div class="row">
+        <br/><br/><br/><br/><br/><br/>
+    </div>            
+</div>
+
+<style>
+        #Phone .e-card-stacked {
+            justify-content: flex-start;
+        }
+    .e-card .e-card-header .e-card-header-caption .e-card-header-title{
+        font-size: 14px;
+        font-family: Helvetica, 'Segoe UI';
+        font-weight: bold;
+    }   
+    #Trimmer {
+        height: 175px;
+    }
+    #Camera .e-card-content{
+        padding-top: 0px;
+    }
+    #Trimmer .e-card-content{
+        padding-top: 0px;
+    }
+    #Camera{
+        height: 175px;
+    }
+    .card-layout{
+        max-width: 850px;
+        margin: auto;
+    }
+    .e-card.e-card-horizontal img {
+        margin: 0px;
+        width: 50%
+    }
+    .e-card{
+        margin: 7px;
+    }
+    .card-control-section .e-card.e-card-horizontal.e-product .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child,
+    .card-control-section .e-card.e-card-horizontal .e-card-stacked > :first-child {
+        flex-grow: 0;
+    }
+</style>
+
+@code {    
+    private Base b = new Base();
+    private Agahi Announcement = new Agahi();
+
+    public async Task HandleValidSubmit()
+    {        
+        @* var id = await http.PostJsonAsync("http://localhost:5001/api/Agahi", Announcement ); *@
+
+        @* navigationManager.NavigateTo($"/Announcement/cafebazaar/{id}");     *@
+    }
+
+    void Change(dynamic value, string name) {}
+}

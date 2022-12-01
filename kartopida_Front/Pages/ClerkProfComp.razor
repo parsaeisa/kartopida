@@ -1,0 +1,36 @@
+@* @page "/ClerkProfComponent" *@
+@using Radzen.Blazor
+
+<RadzenCard Style="width:inherit;height:185px">
+    <div class="row">
+        <div class="col">
+            @* <RadzenImage Path="@order.Employee?.Photo" Style="width:100px;" /> *@
+            <img src="build.png" style="width: inherit;height : 135px" />
+        </div>
+        <div class="col" dir="rtl">        
+            <h3><b>@clerk.name</b></h3> 
+            <h3>@clerk.FieldTitle</h3> 
+            <h4> @clerk.degree </h4>
+            <h4> @clerk.email </h4>
+        </div>
+        <div class="col" style="align: right;">
+            <div class="row"> <br/><br/> </div>
+            <div class="row"> <br/><br/> </div>
+            <div class="row">                
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <a href="/Clerk/Profile/{@clerk.username}" class="btn btn-outline-info">
+                        <span class="material-icons">person_outline</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</RadzenCard>
+
+@code{
+    [Parameter]
+    public Clerk clerk {get; set;}
+    
+}

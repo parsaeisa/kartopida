@@ -1,0 +1,95 @@
+@page "/entrepreur/Profile/{entrepreurusername}"
+@inject HttpClient http
+
+<div class="container">
+    <div class="row">
+        <br/><br/>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <br/>
+            <RadzenCard Style="width:inherit;height:fit-content;text-align: center;">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">                        
+                        <img src="build.png" style="width: inherit;height : inherit" />   
+                        <br/>                 
+                        <h3><b>@entrepreneur.name</b></h3>                                                 
+                        <h4> @entrepreneur.username </h4>
+                        <h4> @entrepreneur.email </h4>
+                        <h4> @entrepreneur.phonenumber </h4>                        
+                    </div>
+                    
+                    <div class="col">
+                        <div class="row"> <br/><br/> </div>
+                        <div class="row"> <br/><br/> </div>
+                        <div class="row">                            
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var field in @fields)
+                    {
+                        <p> @field </p>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            @entrepreneur.Description                            
+                        </p>
+                    </div>
+                </div>
+            </RadzenCard>
+            <br/>
+        </div>
+        <div class="col-md-4"></div>        
+    </div>
+    @* <RadzenPanel AllowCollapse="true" Style="width:450px;margin-bottom: 20px; height:500px;"
+                            Expand="@(() => Change("Panel expanded"))" Collapse="@(() => Change("Panel collapsed"))">
+                <HeaderTemplate>
+                    <span style="float:left;">
+                        <RadzenIcon Icon="account_box" /><b style="font-size:30px">کارمندان</b>
+                    </span>
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenDataList PageSize="1" WrapItems="true" AllowPaging="true" 
+                                    Data="@entrepreneur.startups" TItem="Startup">
+                        <Template Context="s">
+                            <RadzenCard Style="width:300px;height:300px">
+                                <div class="row">
+                                    <StartUpInfoComp startup = "s" />
+                                </div>
+
+                            </RadzenCard>
+                        </Template>
+                    </RadzenDataList>
+                </ChildContent>
+            </RadzenPanel>     *@
+    <div class="row">
+        <br/><br/><br/>
+    </div>
+</div>
+
+@code{
+    [Parameter] public string entrepreurusername {get; set;}
+
+    private Entrepreneur entrepreneur = new Entrepreneur();
+    private string[] fields = new string[]{};
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            entrepreneur = await http.GetJsonAsync<Entrepreneur>($"http://localhost:5001/api/Entrepreneur/{entrepreurusername}");
+            fields = entrepreneur.fields.Split(',');
+        }
+        catch (Exception e)
+        {
+            System.Console.WriteLine(e.Message);
+        }
+    }
+
+    void Change(string text){}    
+
+}

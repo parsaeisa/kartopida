@@ -1,0 +1,135 @@
+@page "/StartUp/Info/{startupname}" 
+@inject HttpClient http
+
+<div class="container" style="text-align: right;" dir="ltr">
+    <div class="row">
+        <div class="col-md-6">
+            <br/><br/>
+            <div class="row card-layout">                                                  
+                <div class = "col-md-2"></div>
+                <div class = "col-md-10">  
+                    <div class="card" style="width: 28rem;height:fit-content" dir="rtl">
+                        <img src="startup1.jpg" class="card-img-top" style="height: 16rem;" >
+                        <div class="card-body">
+                            <h5 class="card-title">@s.name | @s.InternationalName</h5> <span class="badge badge-info"> @s.WorkingTitle </span>
+                            <p class="card-text">           
+                                <span class="badge badge-success"> @s.Situation </span>|                             
+                                <span class="material-icons">location_on</span> @s.State / @s.City 
+                                | ساعت کاری :  @s.StartWork الی @s.EndWork
+                                <br/><br/>
+                                @* <h4> بنیان گذار : @s.founder.name </h4> *@
+                                <h4> <span class="material-icons">business</span> @s.Address </h4>
+                                <h6> @s.Description </h6>
+                            </p>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        @* <div clas="col-md-6" dir="rtl">            
+            <br/><br/><h2>آگهی ها :</h2> <br/>
+            @foreach (var a in @s.Agahiha)
+            {
+                <AnnouncementComp agahi = "@a" />
+            }
+        </div>             *@
+    </div>
+    <div class="row">
+        <br/><br/>        
+    </div>
+    <div class="row">
+        <div class="col-md-6">                   
+            <RadzenPanel AllowCollapse="true" Style="width:450px;margin-bottom: 20px; height:500px;"
+                            Expand="@(() => Change("Panel expanded"))" Collapse="@(() => Change("Panel collapsed"))">
+                <HeaderTemplate>
+                    <span style="float:left;">
+                        <RadzenIcon Icon="account_box" /><b style="font-size:30px">کارمندان</b>
+                    </span>
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenDataList PageSize="1" WrapItems="true" AllowPaging="true" 
+                                    Data="@clerks" TItem="Clerk">
+                        <Template Context="clerk">
+                            <RadzenCard Style="width:300px;height:300px">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <br /><br /><br />                                        
+                                        <div>نام:</div>
+                                        <b>@clerk.name</b>
+                                        <div style="margin-top:20px">عنوان تخصص</div>
+                                        <b>@clerk.FieldTitle</b>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>مدرک تحصیلی:</div>
+                                        <b>@clerk.degree</b>
+                                        <div style="margin-top:20px">پست الکترونیکی :</div>
+                                        <b>@clerk.email </b>
+                                        <div style="margin-top:20px">شماره تلفن همراه :</div>
+                                        <b>@clerk.phonenumber</b>                                    
+                                    </div>
+                                </div>
+
+                            </RadzenCard>
+                        </Template>
+                    </RadzenDataList>
+                </ChildContent>
+            </RadzenPanel>    
+        </div>
+        @*<div class="col-md-6">                        
+            <RadzenPanel AllowCollapse="true" Style="width:450px;margin-bottom: 20px; height:500px;"
+                            Expand="@(() => Change("Panel expanded"))" Collapse="@(() => Change("Panel collapsed"))">
+                <HeaderTemplate>
+                    <span style="float:left;">
+                        <RadzenIcon Icon="account_box" /><b style="font-size:30px">کارآفرینان</b>
+                    </span>
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenDataList PageSize="1" WrapItems="true" AllowPaging="true" 
+                                    Data="@s.entrepreneurs" TItem="Entrepreneur">
+                        <Template Context="clerk">
+                            <RadzenCard Style="width:300px;height:300px">
+                                <div class="row">
+                                    <div class="col-md-6">                                                                                
+                                        @* <RadzenImage Path="@order.Employee?.Photo" Style="width:100px;" /> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>نام:</div>
+                                        <b>@clerk.name</b>                                    
+                                        <div style="margin-top:20px">پست الکترونیکی :</div>
+                                        <b>@clerk.email </b>
+                                        <div style="margin-top:20px">شماره تلفن همراه :</div>
+                                        <b>@clerk.phonenumber</b>                                    
+                                    </div>
+                                </div>
+
+                            </RadzenCard>
+                        </Template>
+                    </RadzenDataList>
+                </ChildContent>
+            </RadzenPanel>    
+        </div>     *@
+    </div>
+    <div class="row"> <br/><br/> </div>
+</div>
+
+@code {
+    private Startup s = new Startup();
+    private Agahi agahi{get; set;}
+    private List<Clerk> clerks = new List<Clerk>();
+    private List<Entrepreneur> entrepreneurs = new List<Entrepreneur>();
+
+    [Parameter] public string startupname {get; set;}    
+
+    protected override async Task OnInitializedAsync()
+    {
+        s = await http.GetJsonAsync<Startup>($"http://localhost:5001/api/Startup/{startupname}");        
+        foreach (var cler in s.Clers.Split(','))
+        {
+            clerks.Add(await http.GetJsonAsync<Clerk>($"http://localhost:5001/api/Clerk/getByUserName/{cler}"));
+        }
+
+    }
+    void Change(string text){} 
+
+}
