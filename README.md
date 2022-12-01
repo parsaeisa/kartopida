@@ -4,14 +4,23 @@
 
 This is a platform written using ASP.NET and blazor for entrepreneurs and job seekers to find each other . 
 
-Entrepreneuers can define Company and add job openings . 
+Entrepreneuers can define Companies and add job openings . 
 
 Job seekers can join companies using job openings 
 
 ## Features
 
-### Sign up for Clerk and Entrepreneur
-
 ### Add job openings
 ![](https://github.com/parsaeisa/kartopida/blob/main/pictures/add.png)
+
+### Feed
+entrepreneuers and job seekers have a feed which they can see companies and other job seekers in . 
+
+![](https://github.com/parsaeisa/kartopida/blob/main/pictures/feed.png)
+
+### Sign up for Clerk and Entrepreneur
+
+![](https://github.com/parsaeisa/kartopida/blob/main/pictures/sign%20up.png)
+![](https://github.com/parsaeisa/kartopida/blob/main/pictures/entre_signup.png)
+
 
