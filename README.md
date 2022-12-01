@@ -20,15 +20,11 @@ entrepreneuers and job seekers have a feed which they can see companies and othe
 
 ### Sign up for Clerk and Entrepreneur
 
-<div class="row">
-  <div class="col">
-     <img src="https://github.com/parsaeisa/kartopida/blob/main/pictures/sign%20up.png" width=35% height=40% >
-  </div>
-  <div class="col">
-    <img src="https://github.com/parsaeisa/kartopida/blob/main/pictures/entre_signup.png" width=40% height=40% >
-  </div>
-</div>
+#### Job seeker
+![](https://github.com/parsaeisa/kartopida/blob/main/pictures/sign%20up.png)
 
+#### Entrepreneuer
+![](https://github.com/parsaeisa/kartopida/blob/main/pictures/entre_signup.png)
 
 
 
