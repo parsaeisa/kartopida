@@ -8,6 +8,12 @@ Entrepreneuers can define Companies and add job openings .
 
 Job seekers can join companies using job openings 
 
+## Architecture
+The architecture is MVC . so we have three parts : 
+* Front-end
+* Back-end
+* Shared : for communication between front-end and back-end 
+
 ## Features
 
 ### Add job openings
