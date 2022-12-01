@@ -1,5 +1,0 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\Program Files\Git\AP98992\project\kartopida_Front\bin\Debug\netstandard2.1\wwwroot\" />
-  <ContentRoot BasePath="_content/Radzen.Blazor" Path="C:\Users\ASUS\.nuget\packages\radzen.blazor\2.10.20\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/Syncfusion.Blazor" Path="C:\Users\ASUS\.nuget\packages\syncfusion.blazor\18.2.0.44\build\..\staticwebassets\" />
-</StaticWebAssets>
