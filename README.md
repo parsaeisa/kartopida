@@ -1,6 +1,6 @@
 # kartopida
 
-### Advanced programming courses project
+### Advanced programming courses final project
 
 This is a platform written using ASP.NET and blazor for entrepreneurs and job seekers to find each other . 
 
